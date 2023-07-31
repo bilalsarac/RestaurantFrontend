@@ -1,0 +1,14 @@
+.card-background{
+    background-color: rgb(247, 221, 173);
+}
+.circular-image{
+    border-radius: 50%;
+}
+.restaurant-img {
+    border-radius: 50%; 
+    height: 200px;
+    width: 200px; 
+    object-fit: cover; 
+    float: left;
+ 
+  }
