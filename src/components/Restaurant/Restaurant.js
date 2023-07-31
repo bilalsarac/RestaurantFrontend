@@ -8,10 +8,10 @@ import { DeleteWithAuth, GetWithoutAuth } from "../../services/HttpService";
 import EditForm from "../EditForm/EditForm";
 import './Restaurant.css'
 import { GetWithAuth } from "../../services/HttpService";
-
+import ScoreForm from './ScoreForm'
 
 function Restaurant(props) {
-  const { refreshRestaurants, restaurantId, userId, name, category, photo, date,address } = props;
+  const { refreshRestaurants, restaurantId, userId, name, category, photo, date,address,setRefreshRestaurant } = props;
   const [expanded, setExpanded] = useState(false);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -20,6 +20,7 @@ function Restaurant(props) {
   const [refresh, setRefresh] = useState(false);
   const [show, setShow] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showScoreForm,setShowScoreForm] = useState(false);
   
   const [tasteScore,setTasteScore] = useState(0);
   const [serviceScore,setServiceScore] = useState(0);
@@ -93,6 +94,10 @@ function Restaurant(props) {
         console.log(err)
       })
 
+  }
+
+  const handleScore =()=>{
+    setShowScoreForm(true)
   }
  
 
@@ -186,6 +191,15 @@ function Restaurant(props) {
                     ></i>
                   </span>
                 ):null}
+                {userId == localStorage.getItem("currentUser")  ? (
+                  <span>
+                    <i
+                      className={"bi  bi-hand-thumbs-up ps-4"}
+                      style={{ cursor: "pointer" }}
+                      onClick={handleScore}
+                    >Evaluate</i>
+                  </span>
+                ):null}
 
                 { localStorage.getItem("role") == "admin" ? (
                   <span>
@@ -209,6 +223,17 @@ function Restaurant(props) {
           restaurantId={restaurantId}
           refreshPosts={refreshRestaurants}
           handleClose={() => setShowEditForm(false)}
+        />
+      )}
+        {showScoreForm && (
+        <ScoreForm
+        handleClose={() => setShowScoreForm(false)}
+        restaurantId={restaurantId}
+       
+        setRefresh = {setRefresh}
+        priceScoree={priceScore}
+        tasteScoree = {tasteScore}
+        serviceScoree = {serviceScore}
         />
       )}
             <i

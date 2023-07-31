@@ -39,6 +39,8 @@ function Auth() {
         console.log(result.userId)
         localStorage.setItem("email", email);
         localStorage.setItem("role", result.role)
+        
+        console.log("deneme")
 
         console.log("curent user" + localStorage.getItem("currentUser"))
         if ((localStorage.getItem("currentUser") == null) || (localStorage.getItem("currentUser").toString() === "null"
@@ -49,8 +51,7 @@ function Auth() {
           localStorage.setItem("role", null)
           console.log("if state")
           setErrorAuth(true)
-          setEmail('')
-          setPassword('')
+          
          
           console.log("errorAuth true")
           navigate("/auth")
@@ -68,16 +69,18 @@ function Auth() {
 
   const handleButton = (path) => {
 
+    
+
     if (email.trim() === "" || password.trim() === "") {
       setShowAlert(true);
       
       return;
     }
+    
 
     console.log(path)
     sendRequest(path);
-    setEmail("");
-    setPassword("");
+    
     console.log("logged")
     console.log(localStorage);
     console.log("handlebutton" + localStorage.getItem("currentUser"))
@@ -98,7 +101,7 @@ function Auth() {
         <Form.Control type="password" onChange={(e) => handlePassword(e.target.value)} />
       </Form.Group>
 
-      {errorAuth ? <Alert variant="danger">Invalid Credentials</Alert> : ""}
+      {errorAuth ? <Alert variant="danger">Invalid Credentials or Already registered Email</Alert> : ""}
       {showAlert && (
         <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
           Please enter a valid Email and password.

@@ -60,7 +60,7 @@ function Home() {
             priceScore= {restaurant.priceScore}
             serviceScore={restaurant.serviceScore}
             tasteScore= {restaurant.tasteScore}
-            refreshRestaurants={refreshRestaurants}
+            setRefresh = {setRefresh}
             isLoaded={isLoaded} 
           />
         ))}
