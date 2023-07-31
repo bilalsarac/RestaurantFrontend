@@ -4,13 +4,13 @@ import { useParams,Link } from "react-router-dom";
 import CommentForm from "../Comment/CommentForm";
 import Comment from "../Comment/Comment";
 import { useState,useRef, useEffect } from "react";
-import { DeleteWithAuth } from "../../services/HttpService";
+import { DeleteWithAuth, GetWithoutAuth } from "../../services/HttpService";
 import EditForm from "../EditForm/EditForm";
 import './Restaurant.css'
 
 
 function Restaurant(props) {
-  const { refreshRestaurants, restaurantId, userId, name, category, photo, date,address,tasteScore,serviceScore,priceScore } = props;
+  const { refreshRestaurants, restaurantId, userId, name, category, photo, date,address } = props;
   const [expanded, setExpanded] = useState(false);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -19,6 +19,10 @@ function Restaurant(props) {
   const [refresh, setRefresh] = useState(false);
   const [show, setShow] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+
+  const [tasteScore,setTasteScore] = useState(0);
+  const [serviceScore,setServiceScore] = useState(0);
+  const [priceScore,setPriceScore] = useState(0);
 
 
   const handleClose = () => setShow(false);
@@ -42,7 +46,21 @@ function Restaurant(props) {
     console.log(commentList);
     console.log(photo)
   };
-
+  const getRestaurantAverage = ()=>{
+    GetWithoutAuth("/ratings/restaurantratings/"+restaurantId)
+    .then((res)=>res.json())
+    .then((result)=>{
+      setTasteScore(result.tasteScore)
+      setPriceScore(result.priceScore)
+      setServiceScore(result.serviceScore)
+      console.log(typeof result.serviceScore)
+      console.log(result.serviceScore)
+      refreshRestaurants();
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
 
   const refreshComments = () => {
     fetch("/comments?restaurantId=" + restaurantId)
@@ -81,6 +99,7 @@ function Restaurant(props) {
  
 
   useEffect(() => {
+    getRestaurantAverage()
     if (isInitialMount.current){
       isInitialMount.current = false;
       console.log(typeof userId)
@@ -120,23 +139,23 @@ function Restaurant(props) {
 
                   
                  
-              </div>
+              </div  > 
               <div className="d-flex justify-content-between align-items-center "  >
               <i
                       className={"bi bi-bus-front ps-5"}
                       style={{ cursor: "pointer" }}
                       onClick={null}
-                    > Service Avarage 10</i>
+                    > Service Avarage { serviceScore  ? <span style={{color:"brown", fontWeight:"bold"}}>{serviceScore}</span>:<span style={{color:"brown", fontWeight:"bold"}}>0.0</span>}</i>
                      <i
                       className={"bi bi-cup-straw ps-3"}
                       style={{ cursor: "pointer" }}
                       onClick={null}
-                    > Taste Avarage 10</i>
+                    > Taste Avarage {serviceScore ? <span style={{color:"brown", fontWeight:"bold"}}>{tasteScore}</span>:<span style={{color:"brown", fontWeight:"bold"}}>0.0</span>}</i>
                      <i
                       className={"bi bi-cash-coin pe-5"}
                       style={{ cursor: "pointer" }}
                       onClick={null}
-                    > Price Avarage 10</i>
+                    > Price Avarage {serviceScore  ? <span style={{color:"brown", fontWeight:"bold"}}>{priceScore}</span>:<span style={{color:"brown", fontWeight:"bold"}}>0.0</span>}</i>
               </div>
             
         

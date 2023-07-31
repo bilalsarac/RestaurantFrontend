@@ -16,6 +16,7 @@ function CustomNavbar() {
     localStorage.removeItem('refreshKey');
     localStorage.removeItem('userName');
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('role')
     // localStorage.setItem("currentUser", null)
 
     navigate('/auth');

@@ -63,7 +63,8 @@ function RestaurantForm(props) {
 
     return (
        <Container>
-        <Button variant="dark" className='m-3' onClick={handleShow}>Add Restaurant</Button>
+        {localStorage.getItem("role") == "senior" ?<Button variant="dark" className='m-3' onClick={handleShow}>Add Restaurant</Button> : null}
+        
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add Restaurant</Modal.Title>
