@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { PostWithAuth, RefreshToken } from '../../services/HttpService';
+import { GetWithAuth, PostWithAuth, RefreshToken } from '../../services/HttpService';
 
 function CommentForm(props) {
     const { userId, email, restaurantId, setCommentRefresh } = props;
     const [isSent, setIsSent] = useState(false);
     const [text, setText] = useState("");
+    
+
     let navigate = useNavigate();
 
     const logout = () => {
@@ -68,10 +70,10 @@ function CommentForm(props) {
         setText(value);
     };
 
-
-
-
-
+   
+     
+  
+    
 
     return (
         <div className="card m-5">
@@ -96,7 +98,7 @@ function CommentForm(props) {
                                     <div class="input-group mb-3">
                                         <input onChange={(i) => handleText(i.target.value)} value={text} type="text" class="form-control" placeholder="Text" aria-label="text" aria-describedby="button-addon2" />
                                         <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="button" id="comment" onClick={handleSubmit}>Comment</button>
+                                            <button class="btn btn-outline-secondary" type="button" id="comment" onClick={handleSubmit} >Comment</button>
                                         </div>
                                     </div>
 
@@ -117,7 +119,7 @@ function CommentForm(props) {
     );
 
 
-
+    
 }
 
 export default CommentForm;

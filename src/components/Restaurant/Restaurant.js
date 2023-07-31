@@ -7,6 +7,7 @@ import { useState,useRef, useEffect } from "react";
 import { DeleteWithAuth, GetWithoutAuth } from "../../services/HttpService";
 import EditForm from "../EditForm/EditForm";
 import './Restaurant.css'
+import { GetWithAuth } from "../../services/HttpService";
 
 
 function Restaurant(props) {
@@ -19,7 +20,7 @@ function Restaurant(props) {
   const [refresh, setRefresh] = useState(false);
   const [show, setShow] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-
+  
   const [tasteScore,setTasteScore] = useState(0);
   const [serviceScore,setServiceScore] = useState(0);
   const [priceScore,setPriceScore] = useState(0);
@@ -55,7 +56,7 @@ function Restaurant(props) {
       setServiceScore(result.serviceScore)
       console.log(typeof result.serviceScore)
       console.log(result.serviceScore)
-      refreshRestaurants();
+      
     })
     .catch((err)=>{
       console.log(err)
@@ -93,9 +94,6 @@ function Restaurant(props) {
       })
 
   }
-
-
-
  
 
   useEffect(() => {
@@ -118,7 +116,7 @@ function Restaurant(props) {
   } else {
     return (
       
-         <Card className="m-5">
+         <Card className="m-5" style={{boxShadow:"0px 4px 8px rgba(0, 0, 0, 0.2)"}}>
            <div className="row">
             <div className="col-3">
            <Link
@@ -145,17 +143,17 @@ function Restaurant(props) {
                       className={"bi bi-bus-front ps-5"}
                       style={{ cursor: "pointer" }}
                       onClick={null}
-                    > Service Avarage { serviceScore  ? <span style={{color:"brown", fontWeight:"bold"}}>{serviceScore}</span>:<span style={{color:"brown", fontWeight:"bold"}}>0.0</span>}</i>
+                    > Service Avarage { serviceScore  ? <span style={{color:"brown", fontWeight:"bold"}}>{serviceScore}</span>:<span style={{color:"brown", fontWeight:"bold"}}>-</span>}</i>
                      <i
                       className={"bi bi-cup-straw ps-3"}
                       style={{ cursor: "pointer" }}
                       onClick={null}
-                    > Taste Avarage {serviceScore ? <span style={{color:"brown", fontWeight:"bold"}}>{tasteScore}</span>:<span style={{color:"brown", fontWeight:"bold"}}>0.0</span>}</i>
+                    > Taste Avarage {serviceScore ? <span style={{color:"brown", fontWeight:"bold"}}>{tasteScore}</span>:<span style={{color:"brown", fontWeight:"bold"}}>-</span>}</i>
                      <i
                       className={"bi bi-cash-coin pe-5"}
                       style={{ cursor: "pointer" }}
                       onClick={null}
-                    > Price Avarage {serviceScore  ? <span style={{color:"brown", fontWeight:"bold"}}>{priceScore}</span>:<span style={{color:"brown", fontWeight:"bold"}}>0.0</span>}</i>
+                    > Price Avarage {serviceScore  ? <span style={{color:"brown", fontWeight:"bold"}}>{priceScore}</span>:<span style={{color:"brown", fontWeight:"bold"}}>-</span>}</i>
               </div>
             
         
@@ -244,16 +242,17 @@ function Restaurant(props) {
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
               )}
-              {disabled ? (
+              {disabled  ? (
                 ""
               ) : (
                 //condition required for one comment per resta
-                <CommentForm
+                  <CommentForm
                   userId={localStorage.getItem("currentUser")}
                  
                   restaurantId={restaurantId}
                   setCommentRefresh={setCommentRefresh}
-                />
+                /> 
+               
               )}
             </div>
           )}
