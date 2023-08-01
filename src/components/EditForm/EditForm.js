@@ -1,11 +1,11 @@
-import React, { useState,useEffect } from "react";
-import { Modal, Button, Form,Spinner } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Form, Spinner } from "react-bootstrap";
 import { GetWithAuth, PostWithAuth, PutWithAuth } from "../../services/HttpService";
 
 function EditForm(props) {
   const { userId, userName, restaurantId, refreshPosts, handleClose } = props;
   const [restaurantData, setRestaurantData] = useState({});
- 
+
 
   const [formData, setFormData] = useState({
     photoUrl: '',
@@ -16,22 +16,22 @@ function EditForm(props) {
   });
 
   const getRestaurant = () => {
-    GetWithAuth("/restaurants/"+restaurantId)
+    GetWithAuth("/restaurants/" + restaurantId)
       .then((res) => res.json())
       .then((result) => {
         setRestaurantData(result);
         setFormData({
-            photoUrl: result.photoUrl,
-            name: result.name,
-            category: result.category,
-            address: result.address,
-            userId: userId
-          });
-       
+          photoUrl: result.photoUrl,
+          name: result.name,
+          category: result.category,
+          address: result.address,
+          userId: userId
+        });
+
       })
       .catch((error) => {
         console.error(error);
-       
+
       });
   };
 
@@ -50,7 +50,7 @@ function EditForm(props) {
       userId: formData.userId
     };
 
-    PutWithAuth("/restaurants/"+restaurantId, updatedRestaurantData)
+    PutWithAuth("/restaurants/" + restaurantId, updatedRestaurantData)
       .then(() => {
         refreshPosts();
         handleClose();
@@ -59,7 +59,7 @@ function EditForm(props) {
         console.error(error);
       });
   };
- 
+
   useEffect(() => {
     getRestaurant();
   }, []);

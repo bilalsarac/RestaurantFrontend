@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Alert, Spinner, Button,Form,Modal } from 'react-bootstrap';
+import { Container, Alert, Spinner, Button, Form, Modal } from 'react-bootstrap';
 import Restaurant from '../Restaurant/Restaurant';
 import RestaurantForm from '../Restaurant/RestaurantForm';
 import { GetWithAuth, GetWithoutAuth, PostWithAuth } from '../../services/HttpService';
@@ -11,8 +11,8 @@ function Home() {
   const [restaurantList, setRestaurantList] = useState([]);
   const [refresh, setRefresh] = useState(false);
 
- 
-  
+
+
   const refreshRestaurants = () => {
     fetch("/restaurants", {
       method: "GET",
@@ -45,9 +45,9 @@ function Home() {
   } else {
     return (
       <Container>
-        {localStorage.getItem("role") == "senior"?<RestaurantForm  refreshRestaurants= {refreshRestaurants}/>:null }
-        
-        
+        {localStorage.getItem("role") == "senior" ? <RestaurantForm refreshRestaurants={refreshRestaurants} /> : null}
+
+
         {restaurantList.map((restaurant) => (
           <Restaurant
             restaurantId={restaurant.id}
@@ -56,12 +56,9 @@ function Home() {
             category={restaurant.category}
             photo={restaurant.photoUrl}
             date={restaurant.createDate}
-            address= {restaurant.address}
-            priceScore= {restaurant.priceScore}
-            serviceScore={restaurant.serviceScore}
-            tasteScore= {restaurant.tasteScore}
-            setRefresh = {setRefresh}
-            isLoaded={isLoaded} 
+            address={restaurant.address}
+            refreshRestaurants={refreshRestaurants}
+            isLoaded={isLoaded}
           />
         ))}
       </Container>

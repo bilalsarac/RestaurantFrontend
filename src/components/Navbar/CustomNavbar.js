@@ -50,7 +50,7 @@ function CustomNavbar() {
                 <Nav.Link as={Link} to={"/users/" + localStorage.getItem("currentUser")}>
                   Profile
                 </Nav.Link>
-              
+
               </>
 
             )}

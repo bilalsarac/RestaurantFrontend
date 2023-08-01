@@ -16,7 +16,7 @@ function RestaurantPopUp(props) {
       .then((res) => res.json())
       .then((result) => {
         setRestaurant(result);
-        
+
       })
       .catch((err) => console.log("error"));
   };
@@ -50,18 +50,18 @@ function RestaurantPopUp(props) {
       <Modal.Body>
         {restaurant ? (
           <Restaurant
-          key={restaurant.id}
-          restaurantId={restaurant.id}
-          userId={restaurant.userId}
-          name={restaurant.name}
-          category={restaurant.category}
-          photo={restaurant.photoUrl}
-          date={restaurant.createDate}
-          address= {restaurant.address}
-          priceScore= {restaurant.priceScore}
-          serviceScore={restaurant.serviceScore}
-          tasteScore= {restaurant.tasteScore}
-        
+            key={restaurant.id}
+            restaurantId={restaurant.id}
+            userId={restaurant.userId}
+            name={restaurant.name}
+            category={restaurant.category}
+            photo={restaurant.photoUrl}
+            date={restaurant.createDate}
+            address={restaurant.address}
+            priceScore={restaurant.priceScore}
+            serviceScore={restaurant.serviceScore}
+            tasteScore={restaurant.tasteScore}
+
           />
         ) : (
           <Spinner animation="border" role="status">
@@ -92,14 +92,14 @@ function UserRestaurant(props) {
 
 
   useEffect(() => {
-    
+
   }, []);
 
   return (
     <>
       <Table striped bordered hover className="m-4">
-       
-        
+
+
       </Table>
       {isOpen ? <RestaurantPopUp isOpen={isOpen} postId={selectedPost} setIsOpen={setIsOpen} /> : ""}
     </>

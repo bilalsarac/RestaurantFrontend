@@ -1,71 +1,79 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { PostWithAuth } from '../../services/HttpService';
-import { Container,Button,Form,Modal } from 'react-bootstrap';
+import { Container, Button, Form, Modal } from 'react-bootstrap';
 
 function RestaurantForm(props) {
-    const { userId, userName, refreshRestaurants } = props;
+  const { userId, userName, refreshRestaurants } = props;
 
-    const currentUser = localStorage.getItem("currentUser");
-    const currentUserAsInt = parseInt(currentUser, 10);
+  const currentUser = localStorage.getItem("currentUser");
+  const currentUserAsInt = parseInt(currentUser, 10);
 
-    const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const [isSent, setIsSent] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [isSent, setIsSent] = useState(false);
 
-   
-   
-    const [formData, setFormData] = useState({
+
+
+  const [formData, setFormData] = useState({
+    photoUrl: '',
+    name: '',
+    category: '',
+    address: '',
+    userId: currentUserAsInt
+  });
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSaveRestaurant = () => {
+    const newRestaurantData = {
+      photoUrl: formData.photoUrl,
+      name: formData.name,
+      category: formData.category,
+      address: formData.address,
+      userId: currentUserAsInt
+    };
+    console.log(formData.photoUrl)
+    console.log(formData.category)
+    console.log(formData.address)
+    console.log(formData.userId)
+    console.log(formData.name)
+
+    PostWithAuth("/restaurants", newRestaurantData)
+      .then()
+      .then(() => {
+
+        console.log("userID" + localStorage.getItem("currentUser"))
+        refreshRestaurants();
+        handleClose()
+      })
+      .catch((error) => {
+
+        console.error(error);
+      });
+
+    setFormData({
       photoUrl: '',
       name: '',
       category: '',
       address: '',
       userId: currentUserAsInt
-    });
-  
-   
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setFormData((prevState) => ({ ...prevState, [name]: value }));
-    };
-  
-    const handleSaveRestaurant = () => {
-        const newRestaurantData = {
-          photoUrl: formData.photoUrl,
-          name: formData.name,
-          category: formData.category,
-          address: formData.address,
-          userId: currentUserAsInt
-        };   
-        console.log(formData.photoUrl)
-        console.log(formData.category)
-        console.log(formData.address)
-        console.log(formData.userId)
-        console.log(formData.name)
-       
-        PostWithAuth("/restaurants", newRestaurantData)
-        .then()
-        .then( () => {
-         
-            console.log("userID"+localStorage.getItem("currentUser"))
-            refreshRestaurants();
-            handleClose()
-        })
-          .catch((error) => {
-          
-            console.error(error);
-          });
-      };
+    })
+  };
 
 
 
-    return (
-       <Container>
-        {localStorage.getItem("role") == "senior" ?<Button variant="dark" className='m-3' onClick={handleShow}>Add Restaurant</Button> : null}
-        
-        <Modal show={show} onHide={handleClose}>
+  return (
+    <Container>
+      {localStorage.getItem("role") == "senior" ? <Button variant="dark" className='m-3' onClick={handleShow}>Add Restaurant</Button> : null}
+
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add Restaurant</Modal.Title>
         </Modal.Header>
@@ -119,8 +127,8 @@ function RestaurantForm(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-       </Container>
-    );
+    </Container>
+  );
 
 
 

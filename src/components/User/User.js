@@ -2,7 +2,7 @@ import Avatar from "../../../src/components/Avatar/Avatar";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GetWithAuth } from "../../services/HttpService";
-import { Alert,Spinner } from "react-bootstrap";
+import { Alert, Spinner } from "react-bootstrap";
 import Restaurant from "../Restaurant/Restaurant";
 import UserRestaurant from "../UserRestaurants/UserRestaurants";
 function User() {
@@ -59,47 +59,47 @@ function User() {
 
   useEffect(() => {
     getRestaurantsByUser()
-  }, [refresh,param.userId])
+  }, [refresh, param.userId])
 
 
-if(!isLoaded){
-  return <Spinner animation="border" variant="primary" />;
-}
-else{
-  return (
-    <>{(localStorage.getItem("currentUser") == null) ||
-      (localStorage.getItem("currentUser") == "undefined") ||
-      (localStorage.getItem("currentUser") === null) ? <Alert className="danger">Please Login to see Profiles</Alert> : <div>
+  if (!isLoaded) {
+    return <Spinner animation="border" variant="primary" />;
+  }
+  else {
+    return (
+      <>{(localStorage.getItem("currentUser") == null) ||
+        (localStorage.getItem("currentUser") == "undefined") ||
+        (localStorage.getItem("currentUser") === null) ? <Alert className="danger">Please Login to see Profiles</Alert> : <div>
 
-      <div className="row m-3">
-        {user ? <div className="col-4"><Avatar userId={userId} photo={user.photoUrl} email={user.email} getUser = {getUser}/></div> : ""}
-        {localStorage.getItem("currentUser") == userId ? <div className="col-md-7 m-3"><UserRestaurant userId={userId} /></div> : ""}
+        <div className="row m-3">
+          {user ? <div className="col-4"><Avatar userId={userId} photo={user.photoUrl} email={user.email} getUser={getUser} /></div> : ""}
+          {localStorage.getItem("currentUser") == userId ? <div className="col-md-7 m-3"><UserRestaurant userId={userId} /></div> : ""}
+        </div>
+        <div className="m-3">
+          {restaurantList.map((restaurant) => (
+            <Restaurant
+              key={restaurant.id}
+              restaurantId={restaurant.id}
+              userId={restaurant.userId}
+              name={restaurant.name}
+              category={restaurant.category}
+              photo={restaurant.photoUrl}
+              date={restaurant.createDate}
+              address={restaurant.address}
+              priceScore={restaurant.priceScore}
+              serviceScore={restaurant.serviceScore}
+              tasteScore={restaurant.tasteScore}
+              refreshRestaurants={getRestaurantsByUser}
+              isLoaded={isLoaded}
+            />
+          ))}
+        </div>
       </div>
-      <div className="m-3">
-        {restaurantList.map((restaurant) => (
-          <Restaurant
-          key={restaurant.id}
-          restaurantId={restaurant.id}
-          userId={restaurant.userId}
-          name={restaurant.name}
-          category={restaurant.category}
-          photo={restaurant.photoUrl}
-          date={restaurant.createDate}
-          address= {restaurant.address}
-          priceScore= {restaurant.priceScore}
-          serviceScore={restaurant.serviceScore}
-          tasteScore= {restaurant.tasteScore}
-          refreshRestaurants={getRestaurantsByUser}
-          isLoaded={isLoaded} 
-          />
-        ))}
-      </div>
-    </div>
-    }
+      }
 
-    </>
-  );
-}
+      </>
+    );
+  }
 
 
 }

@@ -39,7 +39,7 @@ function Auth() {
         console.log(result.userId)
         localStorage.setItem("email", email);
         localStorage.setItem("role", result.role)
-        
+
         console.log("deneme")
 
         console.log("curent user" + localStorage.getItem("currentUser"))
@@ -51,8 +51,8 @@ function Auth() {
           localStorage.setItem("role", null)
           console.log("if state")
           setErrorAuth(true)
-          
-         
+
+
           console.log("errorAuth true")
           navigate("/auth")
         } else {
@@ -69,18 +69,18 @@ function Auth() {
 
   const handleButton = (path) => {
 
-    
+
 
     if (email.trim() === "" || password.trim() === "") {
       setShowAlert(true);
-      
+
       return;
     }
-    
+
 
     console.log(path)
     sendRequest(path);
-    
+
     console.log("logged")
     console.log(localStorage);
     console.log("handlebutton" + localStorage.getItem("currentUser"))
