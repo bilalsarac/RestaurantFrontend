@@ -14,6 +14,7 @@ Git software is required to clone the project.
 To run the project, Node.js and a package manager such as yarn or npm(built-in node.js) are required. If you have Node.js, no need to download the package manager.
 
 Install Dependencies
+
 `npm install`
 
 ### Build And Deploy
@@ -29,6 +30,7 @@ Deploy commands
 The last command shown above will serve your static site on port 3000. Like many of serve’s internal settings, the port can be adjusted using the -l or --listen flags:
 
 `serve -s build -l 4000`
+
 Run this command to get a full list of the options available:
 
 `serve -h`
@@ -38,7 +40,7 @@ Production build command
 
 `npm run dev`
 
-###Screenshots
+### Screenshots
 ![image](https://github.com/bilalsarac/RestaurantFrontend/assets/80422331/1659ee43-588f-442b-a81f-6caab439f8e1)
 
 ![image](https://github.com/bilalsarac/RestaurantFrontend/assets/80422331/9e7fbd52-f073-42b5-816b-1a5eafc01a02)
