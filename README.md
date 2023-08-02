@@ -22,6 +22,7 @@ Install Dependencies
 Production build command
 
 `npm run build`
+
 Deploy commands
 
 `npm install -g serve`
@@ -30,10 +31,6 @@ Deploy commands
 The last command shown above will serve your static site on port 3000. Like many of serve’s internal settings, the port can be adjusted using the -l or --listen flags:
 
 `serve -s build -l 4000`
-
-Run this command to get a full list of the options available:
-
-`serve -h`
 
 ### Run The Project
 Production build command
