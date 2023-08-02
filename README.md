@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Restaurant Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This frontend project has been developed for the backend [https://github.com/bilalsarac/RestaurantBackend]app. This application contains pages such as a registration and login page, a home page with a restaurant list, a restaurant profile page of a single restaurant, user profile page. On the main page, all restaurants are listed with their rating(service, taste, price), name, category, address and picture details. By clicking on the restaurant that is desired, users can go to that restaurant's page. Users can go to their own profiles by pressing the profile button, and review the restaurants that are described by that user. Moreover, Users can review the comments made about that restaurant by clicking the comment button under the restaurant card, and comment and give a rating for the restaurant for once. 
 
-## Available Scripts
 
-In the project directory, you can run:
+## Clone The Project
 
-### `npm start`
+Git software is required to clone the project.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+`git clone https://github.com/bilalsarac/RestaurantFrontend.git`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Install Dependencies
 
-### `npm test`
+To run the project, Node.js and a package manager such as yarn or npm(built-in node.js) are required. If you have Node.js, no need to download the package manager.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Install Dependencies
+`npm install`
 
-### `npm run build`
+### Build And Deploy
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Production build command
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`npm run build`
+Deploy commands
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm install -g serve`
+`serve -s build`
 
-### `npm run eject`
+The last command shown above will serve your static site on port 3000. Like many of serve’s internal settings, the port can be adjusted using the -l or --listen flags:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`serve -s build -l 4000`
+Run this command to get a full list of the options available:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`serve -h`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Run The Project
+Production build command
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`npm run dev`
 
-## Learn More
+###Screenshots
+![image](https://github.com/bilalsarac/RestaurantFrontend/assets/80422331/1659ee43-588f-442b-a81f-6caab439f8e1)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![image](https://github.com/bilalsarac/RestaurantFrontend/assets/80422331/9e7fbd52-f073-42b5-816b-1a5eafc01a02)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![image](https://github.com/bilalsarac/RestaurantFrontend/assets/80422331/4d8b5d4d-29e8-4255-bc85-220b591aec10)
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
