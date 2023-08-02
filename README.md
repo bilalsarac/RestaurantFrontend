@@ -1,6 +1,6 @@
 # Restaurant Frontend
 
-This frontend project has been developed for the backend [https://github.com/bilalsarac/RestaurantBackend]app. This application contains pages such as a registration and login page, a home page with a restaurant list, a restaurant profile page of a single restaurant, user profile page. On the main page, all restaurants are listed with their rating(service, taste, price), name, category, address and picture details. By clicking on the restaurant that is desired, users can go to that restaurant's page. Users can go to their own profiles by pressing the profile button, and review the restaurants that are described by that user. Moreover, Users can review the comments made about that restaurant by clicking the comment button under the restaurant card, and comment and give a rating for the restaurant for once. 
+This frontend project has been developed for the backend [https://github.com/bilalsarac/RestaurantBackend]app. This application contains pages such as a registration and login page, a home page with a restaurant list, a restaurant profile page of a single restaurant, user profile page. On the main page, all restaurants are listed with their rating(service, taste, price), name, category, address and picture details. By clicking on the restaurant that is desired, users can go to that restaurant's page. Users can go to their own profiles by pressing the profile button, and review the restaurants that are described by that user. Moreover, Users can review the comments made about that restaurant by clicking the comment button under the restaurant card, and comment and give a rating for the restaurant once. 
 
 
 ## Clone The Project
@@ -36,6 +36,8 @@ The last command shown above will serve your static site on port 3000. Like many
 Production build command
 
 `npm run dev`
+
+The software uses http://localhost:8080 as a proxy address in package.json file.
 
 ### Screenshots
 ![image](https://github.com/bilalsarac/RestaurantFrontend/assets/80422331/1659ee43-588f-442b-a81f-6caab439f8e1)
