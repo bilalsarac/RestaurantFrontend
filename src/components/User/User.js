@@ -23,7 +23,6 @@ function User() {
         (result) => {
 
           setUser(result)
-
           setIsLoaded(true)
         }
       )

@@ -77,19 +77,9 @@ function RestaurantPopUp(props) {
 }
 
 function UserRestaurant(props) {
-  const { userId } = props;
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [rows, setRows] = useState([]);
+
   const [isOpen, setIsOpen] = useState();
   const [selectedPost, setSelectedPost] = useState();
-  const [refresh, setRefresh] = useState();
-
-  const handleNotification = (postId) => {
-    setSelectedPost(postId);
-    setIsOpen(true);
-  };
-
 
   useEffect(() => {
 
@@ -97,17 +87,9 @@ function UserRestaurant(props) {
 
   return (
     <>
-      <Table striped bordered hover className="m-4">
-
-
-      </Table>
       {isOpen ? <RestaurantPopUp isOpen={isOpen} postId={selectedPost} setIsOpen={setIsOpen} /> : ""}
     </>
   );
 }
-
-const buttonStyle = {
-  pointerEvents: 'none',
-};
 
 export default UserRestaurant;

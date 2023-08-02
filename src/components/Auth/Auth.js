@@ -13,13 +13,11 @@ function Auth() {
 
   const handleEmail = (value) => {
     setEmail(value);
-    console.log(email)
     setErrorAuth(false)
   };
 
   const handlePassword = (value) => {
     setPassword(value);
-    console.log(password)
     setErrorAuth(false)
   };
 
@@ -30,34 +28,21 @@ function Auth() {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log("result" + result.userId)
-        console.log("results")
-        console.log(result)
         localStorage.setItem("tokenKey", result.accessToken);
         localStorage.setItem("refreshKey", result.refreshToken);
         localStorage.setItem("currentUser", result.userId);
-        console.log(result.userId)
         localStorage.setItem("email", email);
         localStorage.setItem("role", result.role)
 
-        console.log("deneme")
-
-        console.log("curent user" + localStorage.getItem("currentUser"))
+       
         if ((localStorage.getItem("currentUser") == null) || (localStorage.getItem("currentUser").toString() === "null"
           || (localStorage.getItem("currentUser") == "undefined"))) {
-          console.log(localStorage.getItem("currentUser"))
-          console.log("typeof current" + typeof localStorage.getItem("currentUser"))
           localStorage.setItem("currentUser", null);
           localStorage.setItem("role", null)
-          console.log("if state")
           setErrorAuth(true)
-
-
-          console.log("errorAuth true")
+         
           navigate("/auth")
         } else {
-          console.log("else state")
-
           navigate("/")
         }
 
@@ -69,24 +54,12 @@ function Auth() {
 
   const handleButton = (path) => {
 
-
-
     if (email.trim() === "" || password.trim() === "") {
       setShowAlert(true);
 
       return;
     }
-
-
-    console.log(path)
     sendRequest(path);
-
-    console.log("logged")
-    console.log(localStorage);
-    console.log("handlebutton" + localStorage.getItem("currentUser"))
-    // navigate("/")
-
-
   };
 
   return (<>

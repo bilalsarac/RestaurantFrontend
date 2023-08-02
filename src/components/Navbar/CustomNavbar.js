@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button, Container, Form, FormControl } from 'react-bootstrap';
 import { ArrowRight } from 'react-bootstrap-icons';
-import { GetWithAuth } from '../../services/HttpService';
 import '../Navbar/CustomNavbar.css'
 
 function CustomNavbar() {
@@ -17,15 +16,10 @@ function CustomNavbar() {
     localStorage.removeItem('userName');
     localStorage.removeItem('currentUser');
     localStorage.removeItem('role')
-    // localStorage.setItem("currentUser", null)
-
+  
     navigate('/auth');
 
-    console.log("logout " + localStorage.getItem("currentUser"))
-
   };
-
-
 
   return (
     <Navbar expand="lg" className='navbar-color'>

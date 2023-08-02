@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Spinner, Modal } from "react-bootstrap";
+import { Card, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CommentForm from "../Comment/CommentForm";
 import Comment from "../Comment/Comment";
@@ -20,7 +20,7 @@ function Restaurant(props) {
   const [show, setShow] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [showScoreForm, setShowScoreForm] = useState(false);
-
+  const [ratings,setRatings] = useState([]);
 
   const [tasteScore, setTasteScore] = useState(0);
   const [serviceScore, setServiceScore] = useState(0);
@@ -29,12 +29,9 @@ function Restaurant(props) {
   const roundedServiceScore = parseFloat(serviceScore).toFixed(1);
   const roundedPriceScore = parseFloat(priceScore).toFixed(1);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
 
   const handleEditRestaurant = () => {
-    console.log(restaurantId)
+ 
     setShowEditForm(true);
   };
 
@@ -44,13 +41,12 @@ function Restaurant(props) {
     setRefresh(true);
   }
   const handleExpandClick = () => {
-    console.log(restaurantId)
+    
     setExpanded(!expanded);
     refreshComments();
-    console.log(commentList);
-    console.log(photo)
+   
   };
-  const getRestaurantAverage = () => {
+  const refreshRatings = () => {
     GetWithoutAuth("/ratings/restaurantratings/" + restaurantId)
       .then((res) => res.json())
       .then((result) => {
@@ -59,8 +55,8 @@ function Restaurant(props) {
           setTasteScore(result.tasteScore);
           setPriceScore(result.priceScore);
           setServiceScore(result.serviceScore);
-          console.log(typeof result.serviceScore);
-          console.log(result.serviceScore);
+          setRatings(result)
+        
         } else {
 
           console.log("Rating data is missing or invalid.");
@@ -81,7 +77,7 @@ function Restaurant(props) {
           setCommentList(result)
         },
         (error) => {
-          console.log(error)
+          
           setIsLoaded(true);
           setError(error);
         }
@@ -95,6 +91,7 @@ function Restaurant(props) {
   const handleDeleteRestaurant = () => {
     DeleteWithAuth("/restaurants/" + restaurantId)
       .then(() => {
+        refreshRatings()
         refreshRestaurants()
 
       })
@@ -112,13 +109,12 @@ function Restaurant(props) {
 
 
   useEffect(() => {
-    getRestaurantAverage()
+    refreshRatings()
+    
 
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      console.log(typeof userId)
-      console.log("USERİD" + userId)
-      console.log(localStorage.getItem("role"))
+     
     }
     else
       refreshComments();
@@ -245,6 +241,7 @@ function Restaurant(props) {
                   priceScoree={priceScore}
                   tasteScoree={tasteScore}
                   serviceScoree={serviceScore}
+                  refreshRatings= {refreshRatings}
                 />
               )}
               <i

@@ -4,9 +4,8 @@ import { DeleteWithAuth, GetWithAuth, PutWithAuth } from '../../services/HttpSer
 import './Comment.css'
 import { Button, Modal, Form, } from 'react-bootstrap';
 function Comment(props) {
-  const { text, userId, email, userPhoto, restaurantId, refreshComments, key } = props;
+  const { text, userId, restaurantId, refreshComments } = props;
 
-  const [user, setUser] = useState();
   const [photoUrl, setPhotoUrl] = useState();
   const [editedText, setEditedText] = useState(text);
   const [show, setShow] = useState(false);
@@ -19,9 +18,8 @@ function Comment(props) {
     GetWithAuth("/users/" + userId)
       .then((res) => res.json())
       .then((result => {
-        console.log(userId)
+       
         setPhotoUrl(result.photoUrl)
-        console.log("photo urrrll" + result.photoUrl)
       }))
       .catch((err) => console.log(err))
   }
@@ -54,10 +52,8 @@ function Comment(props) {
 
 
   useEffect(() => {
-
     getUserPhoto()
   }, [])
-
 
   return (
     <div class="container border border-gray rounded">

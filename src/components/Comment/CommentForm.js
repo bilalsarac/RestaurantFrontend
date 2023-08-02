@@ -5,8 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { GetWithAuth, PostWithAuth, RefreshToken } from '../../services/HttpService';
 
 function CommentForm(props) {
-    const { userId, email, restaurantId, setCommentRefresh } = props;
-    const [isSent, setIsSent] = useState(false);
+    const { userId, restaurantId, setCommentRefresh } = props;
     const [text, setText] = useState("");
     const [alreadyCommented, setAlreadyCommented] = useState(false);
 
@@ -18,7 +17,6 @@ function CommentForm(props) {
         localStorage.removeItem("currentUser")
         localStorage.removeItem("refreshKey")
         localStorage.removeItem("email")
-        console.log("?????")
         navigate(0)
     }
 
@@ -39,8 +37,7 @@ function CommentForm(props) {
                             }
                         })
                         .then((result) => {
-                            console.log(result)
-
+                            
                             if (result != undefined) {
                                 localStorage.setItem("tokenKey", result.accessToken);
                                 saveComment();
@@ -61,7 +58,7 @@ function CommentForm(props) {
 
         saveComment();
         setText("");
-        console.log("setCommentref")
+        
         setCommentRefresh()
 
     };

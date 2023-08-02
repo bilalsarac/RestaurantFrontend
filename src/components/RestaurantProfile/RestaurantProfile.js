@@ -8,9 +8,7 @@ function RestaurantProfile() {
 
   const { restaurantId } = useParams();
   const [restaurant, setRestaurant] = useState();
-  const [refresh, setRefresh] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState(false);
 
 
   const getRestaurant = () => {
@@ -21,8 +19,6 @@ function RestaurantProfile() {
         (result) => {
 
           setRestaurant(result)
-          console.log(restaurant)
-          console.log(result)
 
           setIsLoaded(true)
         }
@@ -35,11 +31,6 @@ function RestaurantProfile() {
   useEffect(() => {
     getRestaurant()
   }, [])
-
-
-
-
-
 
   if (!isLoaded) {
     return <Spinner animation="border" variant="primary" />;

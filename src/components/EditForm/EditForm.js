@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Spinner } from "react-bootstrap";
-import { GetWithAuth, PostWithAuth, PutWithAuth } from "../../services/HttpService";
+import { Modal, Button, Form } from "react-bootstrap";
+import { GetWithAuth, PutWithAuth } from "../../services/HttpService";
 
 function EditForm(props) {
-  const { userId, userName, restaurantId, refreshPosts, handleClose } = props;
+  const { userId, restaurantId, refreshPosts, handleClose } = props;
   const [restaurantData, setRestaurantData] = useState({});
 
 

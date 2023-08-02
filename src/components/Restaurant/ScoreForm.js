@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Form, Button, Alert } from 'react-bootstrap';
 import { DeleteWithAuth, GetWithAuth, PostWithAuth, PutWithAuth } from '../../services/HttpService';
 
-const ScoreForm = ({ handleClose, restaurantId, setRefresh }) => {
+const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refreshRestaurants }) => {
 
   const [tasteScore, setTasteScore] = useState(5);
   const [serviceScore, setServiceScore] = useState(5);
   const [priceScore, setPriceScore] = useState(5);
-  const [error, setError] = useState(false);
+  
   const [show, setShow] = useState(false);
   const [alreadyEvaluated, setAlreadyEvaluated] = useState(false);
   const [popup, setPopup] = useState(false);
@@ -28,7 +28,6 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh }) => {
               setServiceScore(result.serviceScore)
               setTasteScore(result.tasteScore)
               setAlreadyEvaluated(true)
-              console.log(serviceScore)
             })
         } else if (res.status === 500) {
           setPriceScore("nan")
@@ -50,10 +49,10 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh }) => {
       .then((res) => {
         setRefresh(true);
         if (res.ok) {
-
-
           setAlreadyEvaluated(false)
-          console.log(serviceScore)
+          setRefresh(true);
+          refreshRatings()
+          refreshRestaurants()
           handleClose();
           setPopup(true)
         } else if (res.status === 500) {
@@ -80,25 +79,23 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh }) => {
     PostWithAuth("/ratings/" + localStorage.getItem("currentUser") + "/" + restaurantId, formData)
       .then((res) => {
 
-        if (res.ok) {
-          console.log(popup)
-          console.log('Scores submitted successfully');
+        if (res.ok) {  
           handleClose();
-          console.log(popup)
+          refreshRatings()
+          refreshRestaurants()
           handleShowPopUp()
-          console.log(popup)
           setRefresh(true);
         } else if (res.status === 500) {
 
           PutWithAuth("/ratings/" + localStorage.getItem("currentUser") + "/" + restaurantId, formData)
             .then((putRes) => {
               if (putRes.ok) {
-                console.log('Scores updated successfully');
                 handleClose();
+                refreshRatings()
+                refreshRestaurants()
                 setRefresh(true);
-                console.log(popup)
                 handleShowPopUp()
-                console.log(popup)
+           
               } else {
                 console.error('Error updating scores:', putRes.statusText);
                 setShow(true);

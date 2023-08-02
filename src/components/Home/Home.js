@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Alert, Spinner, Button, Form, Modal } from 'react-bootstrap';
+import { Container, Alert, Spinner } from 'react-bootstrap';
 import Restaurant from '../Restaurant/Restaurant';
 import RestaurantForm from '../Restaurant/RestaurantForm';
-import { GetWithAuth, GetWithoutAuth, PostWithAuth } from '../../services/HttpService';
-
 
 function Home() {
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [restaurantList, setRestaurantList] = useState([]);
   const [refresh, setRefresh] = useState(false);
-
+  
 
 
   const refreshRestaurants = () => {
@@ -22,21 +20,22 @@ function Home() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log()
         setRestaurantList(data);
         setIsLoaded(true);
       })
       .catch((error) => {
-        console.log(error);
         setError(true);
       });
 
     setRefresh(false);
   };
 
+ 
+
   useEffect(() => {
+  
     refreshRestaurants();
-  }, [refresh]);
+  }, [restaurantList]);
 
   if (error) {
     return <Alert variant="danger">Error!!!</Alert>;

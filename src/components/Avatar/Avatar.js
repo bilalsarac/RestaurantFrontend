@@ -7,18 +7,7 @@ import { GetWithAuth } from "../../services/HttpService";
 function Avatar(props) {
 
   const { photo, userId, email, getUser } = props;
-  const [open, setOpen] = useState(false);
-  const role = localStorage.getItem("role")
   const param = useParams();
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-
-  };
 
   useEffect(() => {
 

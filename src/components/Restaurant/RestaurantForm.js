@@ -4,17 +4,14 @@ import { PostWithAuth } from '../../services/HttpService';
 import { Container, Button, Form, Modal } from 'react-bootstrap';
 
 function RestaurantForm(props) {
-  const { userId, userName, refreshRestaurants } = props;
+  const {  refreshRestaurants } = props;
 
   const currentUser = localStorage.getItem("currentUser");
   const currentUserAsInt = parseInt(currentUser, 10);
-
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [isSent, setIsSent] = useState(false);
-
+ 
 
 
   const [formData, setFormData] = useState({
@@ -39,19 +36,15 @@ function RestaurantForm(props) {
       address: formData.address,
       userId: currentUserAsInt
     };
-    console.log(formData.photoUrl)
-    console.log(formData.category)
-    console.log(formData.address)
-    console.log(formData.userId)
-    console.log(formData.name)
 
     PostWithAuth("/restaurants", newRestaurantData)
       .then()
       .then(() => {
 
-        console.log("userID" + localStorage.getItem("currentUser"))
-        refreshRestaurants();
+      
         handleClose()
+        
+        refreshRestaurants();
       })
       .catch((error) => {
 
@@ -66,6 +59,7 @@ function RestaurantForm(props) {
       userId: currentUserAsInt
     })
   };
+
 
 
 
