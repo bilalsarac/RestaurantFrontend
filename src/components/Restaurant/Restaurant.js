@@ -58,7 +58,9 @@ function Restaurant(props) {
           setRatings(result)
         
         } else {
-
+          setTasteScore("-");
+          setPriceScore("-");
+          setServiceScore("-");
           console.log("Rating data is missing or invalid.");
         }
       })
