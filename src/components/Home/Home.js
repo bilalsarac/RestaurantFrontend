@@ -35,7 +35,7 @@ function Home() {
   useEffect(() => {
   
     refreshRestaurants();
-  }, [restaurantList]);
+  }, []);
 
   if (error) {
     return <Alert variant="danger">Error!!!</Alert>;
