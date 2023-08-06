@@ -49,6 +49,7 @@ function Home() {
 
         {restaurantList.map((restaurant) => (
           <Restaurant
+            key={restaurant.id}
             restaurantId={restaurant.id}
             userId={restaurant.userId}
             name={restaurant.name}
