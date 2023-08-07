@@ -27,7 +27,7 @@ function Comment(props) {
 
 
   const handleCommentDelete = () => {
-    DeleteWithAuth("/comments/" + userId + "/" + restaurantId)
+    DeleteWithAuth("/comments/?userId=" + userId + "&restaurantId=" + restaurantId)
       .then(() => {
         refreshComments()
 
@@ -38,7 +38,7 @@ function Comment(props) {
   }
 
   const handleCommentEdit = () => {
-    PutWithAuth("comments/" + userId + "/" + restaurantId, {
+    PutWithAuth("comments/?userId=" + userId + "&restaurantId=" + restaurantId, {
       text: editedText,
     })
       .then(() => {
@@ -59,7 +59,7 @@ function Comment(props) {
     <div class="container border border-gray rounded">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Comment</Modal.Title>
+          <Modal.Title></Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
