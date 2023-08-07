@@ -47,7 +47,7 @@ function Restaurant(props) {
    
   };
   const refreshRatings = () => {
-    GetWithoutAuth("/ratings/restaurantratings/" + restaurantId)
+    GetWithoutAuth("/ratings/averageratings/?restaurantId=" + restaurantId)
       .then((res) => res.json())
       .then((result) => {
         if (result && typeof result.serviceScore === "number") {

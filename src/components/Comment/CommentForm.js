@@ -70,7 +70,7 @@ function CommentForm(props) {
     const getComment = () => {
         GetWithAuth("/comments/comment/?userId=" + userId + "&restaurantId=" + restaurantId)
             .then((res) => {
-                console.log(res)
+            
                 if (res.status === 200) {
 
                     setAlreadyCommented(true);

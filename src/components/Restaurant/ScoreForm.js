@@ -5,9 +5,9 @@ import { DeleteWithAuth, GetWithAuth, PostWithAuth, PutWithAuth } from '../../se
 
 const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refreshRestaurants }) => {
 
-  const [tasteScore, setTasteScore] = useState(5);
-  const [serviceScore, setServiceScore] = useState(5);
-  const [priceScore, setPriceScore] = useState(5);
+  const [tasteScore, setTasteScore] = useState();
+  const [serviceScore, setServiceScore] = useState();
+  const [priceScore, setPriceScore] = useState();
   
   const [show, setShow] = useState(false);
   const [alreadyEvaluated, setAlreadyEvaluated] = useState(false);
@@ -18,9 +18,10 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refres
 
 
   const getScore = () => {
-    GetWithAuth("/ratings/" + localStorage.getItem("currentUser") + "/" + restaurantId)
+   
+    GetWithAuth("/ratings/rating/?userId=" + localStorage.getItem("currentUser") + "&restaurantId=" + restaurantId)
       .then((res) => {
-
+        console.log(res)
         if (res.ok) {
           res.json()
             .then((result) => {
@@ -35,17 +36,17 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refres
           setTasteScore("nan")
 
         } else {
-          console.error('Error submitting scores:', res.statusText);
+          
           setShow(true);
         }
       })
       .catch((error) => {
-        console.error('Error submitting scores:', error);
+       
       });
   }
 
   const handleDelete = () => {
-    DeleteWithAuth("/ratings/" + localStorage.getItem("currentUser") + "/" + restaurantId)
+    DeleteWithAuth("/ratings/?userId=" + localStorage.getItem("currentUser") + "&restaurantId=" + restaurantId)
       .then((res) => {
         setRefresh(true);
         if (res.ok) {
@@ -76,7 +77,13 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refres
     };
 
 
-    PostWithAuth("/ratings/" + localStorage.getItem("currentUser") + "/" + restaurantId, formData)
+    PostWithAuth("/ratings/", {
+      tasteScore: parseInt(tasteScore),
+      serviceScore: parseInt(serviceScore),
+      priceScore: parseInt(priceScore),
+      userId:localStorage.getItem("currentUser"),
+      restaurantId: restaurantId
+    })
       .then((res) => {
 
         if (res.ok) {  
@@ -87,7 +94,7 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refres
           setRefresh(true);
         } else if (res.status === 500) {
 
-          PutWithAuth("/ratings/" + localStorage.getItem("currentUser") + "/" + restaurantId, formData)
+          PutWithAuth("/ratings/?userId=" + localStorage.getItem("currentUser") + "&restaurantId=" + restaurantId, formData)
             .then((putRes) => {
               if (putRes.ok) {
                 handleClose();
