@@ -59,7 +59,7 @@ function Comment(props) {
     <div class="container border border-gray rounded">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title></Modal.Title>
+          <Modal.Title>Edit Comment</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
