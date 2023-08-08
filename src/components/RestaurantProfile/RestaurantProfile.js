@@ -303,6 +303,7 @@ function RestaurantProfile() {
                       <Comment
                         key={comment.commentId}
                         userId={comment.userId}
+                        email = {comment.email}
                         restaurantId={restaurantId}
                         text={comment.text}
                         refreshComments={refreshComments}

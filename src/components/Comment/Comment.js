@@ -4,7 +4,7 @@ import { DeleteWithAuth, GetWithAuth, PutWithAuth } from '../../services/HttpSer
 import './Comment.css'
 import { Button, Modal, Form, } from 'react-bootstrap';
 function Comment(props) {
-  const { text, userId, restaurantId, refreshComments } = props;
+  const { text, userId, restaurantId, refreshComments,email } = props;
 
   const [photoUrl, setPhotoUrl] = useState();
   const [editedText, setEditedText] = useState(text);
@@ -84,30 +84,39 @@ function Comment(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      <div class="row">
-        <div class="col-md-1">
-          <Link style={{ textDecoration: 'none' }} className='avatar bg-orange text-white' to={{ pathname: '/users/' + userId }}>
-            <div><img src={photoUrl} className='avatar' /></div>
-          </Link>
-        </div>
-        <div className="col-md-10 d-flex align-items-center">
-          <p className="text-start m-2">{text}</p>
-        </div>
-        <div className="col-md-1 d-flex align-items-center justify-content-end">
-          {localStorage.getItem("currentUser") == userId ? <>
-            <i
-              className={"bi bi-pencil ms-3"}
-              style={{ cursor: "pointer" }}
-              onClick={handleShow}
-            ></i>
-            <i
-              className={"bi bi-trash ms-3"}
-              style={{ cursor: "pointer" }}
-              onClick={handleCommentDelete}
-            ></i>  </> : null}
+      <div className="row">
+  <div className="col-md-1">
+    <Link style={{ textDecoration: 'none' }} className=" bg-orange text-white" to={{ pathname: '/users/' + userId }}>
+    <span className="bi bi-arrow-right-circle text-dark"> Go Profile</span>
+    </Link>
+  </div>
+  <div className="col-md-1">
+    <p><strong>Id:</strong> {userId}</p>
+  </div>
+  <div className="col-md-1">
+    <p><strong>Email:</strong> {email}</p>
+  </div>
+  <div className="col-md-8 d-flex align-items-center">
+    <p className="text-start m-2"><strong>Comment:</strong>{text}</p>
+  </div>
+  <div className="col-md-1 d-flex align-items-center justify-content-end">
+    {localStorage.getItem("currentUser") == userId && (
+      <>
+        <i
+          className="bi bi-pencil ms-3"
+          style={{ cursor: "pointer" }}
+          onClick={handleShow}
+        ></i>
+        <i
+          className="bi bi-trash ms-3"
+          style={{ cursor: "pointer" }}
+          onClick={handleCommentDelete}
+        ></i>
+      </>
+    )}
+  </div>
+</div>
 
-        </div>
-      </div>
     </div>
   );
 }
