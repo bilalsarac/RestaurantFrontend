@@ -217,7 +217,7 @@ function RestaurantProfile() {
               <div>
                 <Card.Title><span style={{ color: "orange" }}>Restaurant Name:</span> {restaurant.name}</Card.Title>
                 <p><span style={{ color: "orange" }}>Category: </span>{restaurant.category}</p>
-                <p><span style={{ color: "orange" }}>Restaurant Adrress: </span>{restaurant.address}</p>
+                <p><span style={{ color: "orange" }}>Restaurant Address: </span>{restaurant.address}</p>
               </div  >
               <div className="d-flex justify-content-between align-items-center "  >
                 <i

@@ -88,7 +88,9 @@ function Restaurant(props) {
         <td>{isNaN(avgRatings.avgTaste) ? 'No rating' : avgRatings.avgTaste.toFixed(1)}</td>
         <td>{isNaN(avgRatings.avgService) ? 'No rating' : avgRatings.avgService.toFixed(1)}</td>
         <td>{isNaN(avgRatings.avgPrice) ? 'No rating' : avgRatings.avgPrice.toFixed(1)}</td>
-        <td> <Link to={{ pathname: "/restaurants/" + restaurantId }} key={restaurantId}><Button variant='dark'>Go to Restaurant</Button></Link></td>
+        <td> <Link to={`/restaurants/${restaurantId}`}>
+                    <span className="bi bi-arrow-right-circle text-dark" style={{ fontSize: "1.5rem" }}></span>
+                  </Link></td>
       </tr>
     );
   }
