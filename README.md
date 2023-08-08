@@ -52,3 +52,5 @@ The software uses http://localhost:8080 as a proxy address in package.json file.
 
 ![image](https://github.com/bilalsarac/RestaurantFrontend/assets/80422331/29724812-3dbb-44aa-9d06-e76bc1ba6eaf)
 
+![image](https://github.com/bilalsarac/RestaurantFrontend/assets/80422331/0b4a77c3-a6a3-4943-a509-b2e49bd08f06)
+
