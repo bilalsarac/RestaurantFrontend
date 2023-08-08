@@ -105,7 +105,7 @@ function Home() {
             handleClose={() => setShowEditForm(false)} // Close the form
           />
         )}
-        <p className='text-danger'>This search bar can search restaurants by id, name, category and address.</p>
+        {localStorage.getItem("currentUser") ? <><p className='text-danger'>This search bar can search restaurants by id, name, category and address.</p>
         <Form className="d-flex m-5">
           <Form.Control
             type="search"
@@ -117,7 +117,8 @@ function Home() {
           />
           <Button variant="outline-dark" onClick={() => handleSearch(searchQuery)}>Search</Button>
         </Form>
-
+        </>:null}
+        
         <Table striped bordered hover>
           <thead>
             <tr>
