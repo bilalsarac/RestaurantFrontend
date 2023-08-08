@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Alert, Spinner, Table, Button } from 'react-bootstrap';
+import { Container, Alert, Spinner, Table, Button,Form } from 'react-bootstrap';
 import Restaurant from '../Restaurant/Restaurant';
 import RestaurantForm from '../Restaurant/RestaurantForm';
 import { Link } from 'react-router-dom';
-import { DeleteWithAuth } from '../../services/HttpService';
+import { DeleteWithAuth,GetWithAuth } from '../../services/HttpService';
 import EditForm from '../EditForm/EditForm';
 
 function Home() {
@@ -13,6 +13,9 @@ function Home() {
   const [refresh, setRefresh] = useState(false);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
+
+  const [searchQuery, setSearchQuery] = useState("");
+
 
 
   const calculateAverage = (ratings) => {
@@ -65,6 +68,17 @@ function Home() {
     setRefresh(false);
   };
 
+  const handleSearch = (searchQuery) => {
+    GetWithAuth("/restaurants/search?keyword=" + searchQuery)
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result)
+        setRestaurantList(result)
+      })
+      .catch((err) => console.log(err))
+
+  }
+
 
 
   useEffect(() => {
@@ -91,6 +105,18 @@ function Home() {
             handleClose={() => setShowEditForm(false)} // Close the form
           />
         )}
+        <p className='text-danger'>This search bar can search restaurants by id, name, category and address.</p>
+        <Form className="d-flex m-5">
+          <Form.Control
+            type="search"
+            placeholder="Search"
+            className="me-2"
+            aria-label="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <Button variant="outline-dark" onClick={() => handleSearch(searchQuery)}>Search</Button>
+        </Form>
 
         <Table striped bordered hover>
           <thead>
