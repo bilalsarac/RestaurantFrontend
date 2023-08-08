@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { GetWithAuth, PostWithAuth, RefreshToken } from '../../services/HttpService';
 
 function CommentForm(props) {
-    const { userId, restaurantId, setCommentRefresh } = props;
+    const { userId, restaurantId, setCommentRefresh, refreshComments } = props;
     const [text, setText] = useState("");
     const [alreadyCommented, setAlreadyCommented] = useState(false);
 
@@ -37,10 +37,11 @@ function CommentForm(props) {
                             }
                         })
                         .then((result) => {
-                            
+
                             if (result != undefined) {
                                 localStorage.setItem("tokenKey", result.accessToken);
                                 saveComment();
+
                                 setCommentRefresh();
                             }
                         })
@@ -49,6 +50,8 @@ function CommentForm(props) {
                         })
                 } else
                     res.json()
+
+                refreshComments()
             })
             .catch((err) => {
                 console.log(err)
@@ -58,7 +61,7 @@ function CommentForm(props) {
 
         saveComment();
         setText("");
-        
+
         setCommentRefresh()
 
     };
@@ -70,7 +73,7 @@ function CommentForm(props) {
     const getComment = () => {
         GetWithAuth("/comments/comment/?userId=" + userId + "&restaurantId=" + restaurantId)
             .then((res) => {
-            
+
                 if (res.status === 200) {
 
                     setAlreadyCommented(true);
@@ -82,7 +85,7 @@ function CommentForm(props) {
             .catch((err) => {
 
                 setAlreadyCommented(false);
-                
+
             });
     };
 
@@ -101,17 +104,13 @@ function CommentForm(props) {
                     <div className="card-body">
                         <form>
                             <div class="d-flex">
-
                                 <div className="col-md-1">
-
                                     <div >
                                         <Link style={{ textDecoration: 'none' }} className='avatar bg-orange text-white' to={{ pathname: '/users/' + userId }}>
                                             <span className="avatar-letter">{null}</span>
                                         </Link>
                                     </div>
-
                                 </div>
-
                                 <div class="col-md-11">
                                     <h5 className="card-title text-start"></h5>
                                     <div class="form-group m-2">
@@ -126,22 +125,12 @@ function CommentForm(props) {
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </form>
-
-
-
                     </div>
                 </div>
             </div>
         );
-
-
     }
-
-
 }
 
 export default CommentForm;

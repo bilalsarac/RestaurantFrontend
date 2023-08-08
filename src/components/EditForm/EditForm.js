@@ -3,7 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { GetWithAuth, PutWithAuth } from "../../services/HttpService";
 
 function EditForm(props) {
-  const { userId, restaurantId, refreshPosts, handleClose } = props;
+  const { userId, restaurantId, refreshRestaurants, setRefresh, handleClose } = props;
   const [restaurantData, setRestaurantData] = useState({});
 
 
@@ -52,7 +52,8 @@ function EditForm(props) {
 
     PutWithAuth("/restaurants/" + restaurantId, updatedRestaurantData)
       .then(() => {
-        refreshPosts();
+        refreshRestaurants();
+        setRefresh(true)
         handleClose();
       })
       .catch((error) => {

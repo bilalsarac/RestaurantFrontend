@@ -2,7 +2,7 @@ import Avatar from "../../../src/components/Avatar/Avatar";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GetWithAuth } from "../../services/HttpService";
-import { Alert, Spinner } from "react-bootstrap";
+import { Alert, Spinner, Table, Container } from "react-bootstrap";
 import Restaurant from "../Restaurant/Restaurant";
 import UserRestaurant from "../UserRestaurants/UserRestaurants";
 function User() {
@@ -15,6 +15,20 @@ function User() {
   const [error, setError] = useState(false);
 
   const param = useParams();
+
+  const calculateAverage = (ratings) => {
+    const totalTaste = ratings.reduce((sum, rating) => sum + rating.tasteScore, 0);
+    const totalService = ratings.reduce((sum, rating) => sum + rating.serviceScore, 0);
+    const totalPrice = ratings.reduce((sum, rating) => sum + rating.priceScore, 0);
+    const avgTaste = ratings.length > 0 ? totalTaste / ratings.length : NaN;
+    const avgService = ratings.length > 0 ? totalService / ratings.length : NaN;
+    const avgPrice = ratings.length > 0 ? totalPrice / ratings.length : NaN;
+    return {
+      avgTaste,
+      avgService,
+      avgPrice
+    };
+  };
 
   const getUser = () => {
     GetWithAuth("/users/" + userId)
@@ -74,25 +88,40 @@ function User() {
           {user ? <div className="col-4"><Avatar userId={userId} photo={user.photoUrl} email={user.email} getUser={getUser} /></div> : ""}
           {localStorage.getItem("currentUser") == userId ? <div className="col-md-7 m-3"><UserRestaurant userId={userId} /></div> : ""}
         </div>
-        <div className="m-3">
-          {restaurantList.map((restaurant) => (
-            <Restaurant
-              key={restaurant.id}
-              restaurantId={restaurant.id}
-              userId={restaurant.userId}
-              name={restaurant.name}
-              category={restaurant.category}
-              photo={restaurant.photoUrl}
-              date={restaurant.createDate}
-              address={restaurant.address}
-              priceScore={restaurant.priceScore}
-              serviceScore={restaurant.serviceScore}
-              tasteScore={restaurant.tasteScore}
-              refreshRestaurants={getRestaurantsByUser}
-              isLoaded={isLoaded}
-            />
-          ))}
-        </div>
+        <h2 className="text-dark p-3">Created Restaurants by User ID {userId}</h2>
+        <Container>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>UserID</th>
+                <th>Restaurant Name</th>
+                <th>Taste Average</th>
+                <th>Service Average</th>
+                <th>Price Average</th>
+                <th>Restaurant Profile</th>
+              </tr>
+            </thead>
+            <tbody>
+              {restaurantList.map((restaurant) => (
+                <Restaurant
+                  key={restaurant.id}
+                  restaurantId={restaurant.id}
+                  userId={restaurant.userId}
+                  name={restaurant.name}
+                  category={restaurant.category}
+                  photo={restaurant.photoUrl}
+                  avgRatings={calculateAverage(restaurant.ratings)}
+                  date={restaurant.createDate}
+                  address={restaurant.address}
+                  isLoaded={isLoaded}
+                  average={calculateAverage}
+                  comments={restaurant.comments}
+                />
+              ))}
+            </tbody>
+          </Table>
+        </Container>
       </div>
       }
 

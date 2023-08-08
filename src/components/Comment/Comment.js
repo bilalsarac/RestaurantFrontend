@@ -18,7 +18,7 @@ function Comment(props) {
     GetWithAuth("/users/" + userId)
       .then((res) => res.json())
       .then((result => {
-       
+
         setPhotoUrl(result.photoUrl)
       }))
       .catch((err) => console.log(err))
@@ -38,7 +38,7 @@ function Comment(props) {
   }
 
   const handleCommentEdit = () => {
-    PutWithAuth("comments/?userId=" + userId + "&restaurantId=" + restaurantId, {
+    PutWithAuth("/comments/?userId=" + userId + "&restaurantId=" + restaurantId, {
       text: editedText,
     })
       .then(() => {

@@ -1,14 +1,13 @@
-
 import React, { useEffect, useState } from 'react';
 import { Modal, Form, Button, Alert } from 'react-bootstrap';
 import { DeleteWithAuth, GetWithAuth, PostWithAuth, PutWithAuth } from '../../services/HttpService';
 
-const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refreshRestaurants }) => {
+const ScoreForm = ({ handleClose, restaurantId, setRefresh, refreshRatings, refreshRestaurants }) => {
 
   const [tasteScore, setTasteScore] = useState();
   const [serviceScore, setServiceScore] = useState();
   const [priceScore, setPriceScore] = useState();
-  
+
   const [show, setShow] = useState(false);
   const [alreadyEvaluated, setAlreadyEvaluated] = useState(false);
   const [popup, setPopup] = useState(false);
@@ -18,7 +17,7 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refres
 
 
   const getScore = () => {
-   
+
     GetWithAuth("/ratings/rating/?userId=" + localStorage.getItem("currentUser") + "&restaurantId=" + restaurantId)
       .then((res) => {
         console.log(res)
@@ -36,12 +35,12 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refres
           setTasteScore("nan")
 
         } else {
-          
+
           setShow(true);
         }
       })
       .catch((error) => {
-       
+
       });
   }
 
@@ -53,7 +52,7 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refres
           setAlreadyEvaluated(false)
           setRefresh(true);
           refreshRatings()
-          refreshRestaurants()
+
           handleClose();
           setPopup(true)
         } else if (res.status === 500) {
@@ -81,12 +80,12 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refres
       tasteScore: parseInt(tasteScore),
       serviceScore: parseInt(serviceScore),
       priceScore: parseInt(priceScore),
-      userId:localStorage.getItem("currentUser"),
+      userId: localStorage.getItem("currentUser"),
       restaurantId: restaurantId
     })
       .then((res) => {
 
-        if (res.ok) {  
+        if (res.ok) {
           handleClose();
           refreshRatings()
           refreshRestaurants()
@@ -102,7 +101,7 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refres
                 refreshRestaurants()
                 setRefresh(true);
                 handleShowPopUp()
-           
+
               } else {
                 console.error('Error updating scores:', putRes.statusText);
                 setShow(true);
@@ -126,6 +125,7 @@ const ScoreForm = ({ handleClose, restaurantId, setRefresh,refreshRatings,refres
 
   useEffect(() => {
     getScore()
+
   }, [])
 
 
