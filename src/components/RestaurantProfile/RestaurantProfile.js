@@ -11,7 +11,7 @@ import ScoreForm from "../Restaurant/ScoreForm";
 import { useNavigate } from "react-router-dom";
 
 function RestaurantProfile() {
-  let userId = localStorage.getItem("currentUser");
+  
   let disabled = (localStorage.getItem("currentUser") == null) || (localStorage.getItem("currentUser") == "null") ? true : false;
   const { restaurantId } = useParams();
   const [restaurant, setRestaurant] = useState();
@@ -253,7 +253,7 @@ function RestaurantProfile() {
                   </div>
                 ) : (
                   <div>
-                    {userId == localStorage.getItem("currentUser") & localStorage.getItem("role") == "senior" ? (
+                    { localStorage.getItem("role") == "senior" ? (
                       <span>
                         <i
                           className={"bi bi-pencil-square ps-3"}

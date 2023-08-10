@@ -129,7 +129,7 @@ function Home() {
               <th>Service Average</th>
               <th>Price Average</th>
               <th>Restaurant Profile</th>
-              {localStorage.getItem("role") == "senior" | localStorage.getItem("role") == "admin" ? <th>Actions</th> : null}
+              { localStorage.getItem("role") == "senior" | localStorage.getItem("role") == "admin" ? <th>Actions</th> : null}
 
             </tr>
           </thead>
@@ -147,9 +147,9 @@ function Home() {
                     <span className="bi bi-arrow-right-circle text-dark" style={{ fontSize: "1.5rem" }}></span>
                   </Link>
                 </td>
-                {localStorage.getItem("role") == "senior" | localStorage.getItem("role") == "admin" ?
+                { localStorage.getItem("role") == "senior" | localStorage.getItem("role") == "admin" ?
                   <td>
-                    {localStorage.getItem("role") == "senior" ? <Button
+                    {localStorage.getItem("currentUser") == restaurant.userId & localStorage.getItem("role") == "senior" ? <Button
                       variant="dark"
                       onClick={() => handleEditRestaurant(restaurant.id)}
                     >
