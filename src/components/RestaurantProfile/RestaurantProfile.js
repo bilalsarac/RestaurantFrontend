@@ -253,7 +253,7 @@ function RestaurantProfile() {
                   </div>
                 ) : (
                   <div>
-                    { localStorage.getItem("role") == "senior" ? (
+                    {  localStorage.getItem("currentUser") == restaurant.userId  & localStorage.getItem("role") == "senior" ? (
                       <span>
                         <i
                           className={"bi bi-pencil-square ps-3"}
